@@ -44,7 +44,7 @@ public class SplashFragment extends BaseFragment {
         authStateListener = new Firebase.AuthStateListener() {
             @Override
             public void onAuthStateChanged(AuthData authData) {
-                final Class fragment = authData == null ? SignInFragment.class : TestFragment.class;
+                final Class fragment = authData == null ? SignInFragment.class : ChildFragment.class;
                 final long sleep = TIME - (Calendar.getInstance().getTimeInMillis() - start);
                 if (sleep > 0) {
                     waitSomeTime(sleep, fragment);
