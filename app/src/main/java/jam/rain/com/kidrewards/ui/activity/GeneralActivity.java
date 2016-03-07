@@ -14,11 +14,14 @@ import android.view.MenuItem;
 
 import org.apache.commons.lang3.StringUtils;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import jam.rain.com.kidrewards.R;
 import jam.rain.com.kidrewards.dagger.Injector;
 import jam.rain.com.kidrewards.ui.fragment.BaseFragment;
+import jam.rain.com.kidrewards.util.FirebaseUtil;
 import pocketknife.BindExtra;
 import pocketknife.NotRequired;
 import pocketknife.PocketKnife;
@@ -28,6 +31,9 @@ public class GeneralActivity extends AppCompatActivity {
     public static final String EXTRA_FRAGMENT_CLASS_NAME = "EXTRA_FRAGMENT_CLASS_NAME";
     public static final String EXTRA_FRAGMENT_BUNDLE = "EXTRA_FRAGMENT_BUNDLE";
     public static final String EXTRA_FRAGMENT_TITLE = "EXTRA_FRAGMENT_TITLE";
+
+    @Inject
+    FirebaseUtil firebaseUtil;
 
     @NotRequired
     @BindExtra(EXTRA_FRAGMENT_CLASS_NAME)

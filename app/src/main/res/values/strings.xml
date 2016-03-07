@@ -7,4 +7,11 @@
     <string name="authenticating">Authenticating with Firebase&#8230;&#8230;&#8230;</string>
     <string name="error_authenticating">Error authenticating with Google: %1$s</string>
     <string name="sign_out">Sign Out</string>
+    <string name="child">Child</string>
+    <string name="add_point">Add Point</string>
+    <string name="remove_point">Remove Point</string>
+    <string name="points">Points</string>
+    <string name="reward">Reward</string>
+    <string name="point_value">%1$d</string>
+    <string name="reward_value">$%1$d</string>
 </resources>
