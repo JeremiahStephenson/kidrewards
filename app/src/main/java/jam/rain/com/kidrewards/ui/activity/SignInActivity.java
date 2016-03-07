@@ -8,4 +8,6 @@ public class SignInActivity extends GeneralActivity {
     protected String getFragmentClassName() {
         return SignInFragment.class.getName();
     }
+
+
 }

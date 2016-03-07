@@ -20,16 +20,16 @@ public class InternalIntents {
     public InternalIntents() {
     }
 
-    private void showGeneralActivity(@NonNull Activity context, @NonNull Class fragment, @StringRes int titleResourceId) {
+    public void showGeneralActivity(@NonNull Activity context, @NonNull Class fragment, @StringRes int titleResourceId) {
         showGeneralActivity(context, fragment, titleResourceId, null);
     }
 
-    private void showGeneralActivity(@NonNull Activity context, @NonNull Class fragment,
+    public void showGeneralActivity(@NonNull Activity context, @NonNull Class fragment,
                                      @StringRes int titleResourceId, @Nullable Bundle args) {
         context.startActivity(setupGeneralIntent(context, fragment, titleResourceId, args));
     }
 
-    private void showGeneralActivityForResult(@NonNull Activity activity, @NonNull Fragment fragment, int requestCode,
+    public void showGeneralActivityForResult(@NonNull Activity activity, @NonNull Fragment fragment, int requestCode,
                                               @NonNull Class fragmentClass, @StringRes int titleResourceId, @Nullable Bundle args) {
         fragment.startActivityForResult(setupGeneralIntent(activity, fragmentClass, titleResourceId, args), requestCode);
     }

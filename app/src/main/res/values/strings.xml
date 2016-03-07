@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Kid Rewards</string>
     <string name="action_settings">Settings</string>
+    <string name="child">Child</string>
+    <string name="add_point">Add Point</string>
+    <string name="remove_point">Remove Point</string>
+    <string name="points">Points</string>
+    <string name="reward">Reward</string>
+    <string name="point_value">%1$d</string>
+    <string name="reward_value">$%1$d</string>
 </resources>
