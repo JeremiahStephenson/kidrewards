@@ -3,6 +3,7 @@
     package="jam.rain.com.kidrewards">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
 
     <application
         android:allowBackup="true"
@@ -11,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.activity.SignInActivity"
+            android:name=".ui.activity.SplashActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,9 +21,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.GeneralActivity"
-            android:label="@string/app_name">
-        </activity>
+            android:name=".ui.activity.SignInActivity"/>
+        <activity
+            android:name=".ui.activity.GeneralActivity"/>
     </application>
 
 </manifest>

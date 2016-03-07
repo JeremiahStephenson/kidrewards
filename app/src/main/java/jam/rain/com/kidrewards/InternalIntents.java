@@ -34,7 +34,7 @@ public class InternalIntents {
         fragment.startActivityForResult(setupGeneralIntent(activity, fragmentClass, titleResourceId, args), requestCode);
     }
 
-    private Intent setupGeneralIntent(@NonNull Activity context, @NonNull Class fragment,
+    public Intent setupGeneralIntent(@NonNull Activity context, @NonNull Class fragment,
                                       @StringRes int titleResourceId, @Nullable Bundle args) {
         final Intent intent = new Intent(context, GeneralActivity.class);
         intent.putExtra(GeneralActivity.EXTRA_FRAGMENT_CLASS_NAME, fragment.getName());

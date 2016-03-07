@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="jam.rain.com.kidrewards.MainActivity">
+    <item
+        android:id="@+id/menu_sign_out"
+        android:title="@string/sign_out"
+        app:showAsAction="always" />
+</menu>
