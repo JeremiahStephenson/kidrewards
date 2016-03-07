@@ -8,7 +8,6 @@ import jam.rain.com.kidrewards.ui.adapter.ChildListAdapter;
 import jam.rain.com.kidrewards.ui.fragment.ChildFragment;
 import jam.rain.com.kidrewards.ui.fragment.ChildListFragment;
 import jam.rain.com.kidrewards.ui.fragment.SignInFragment;
-import jam.rain.com.kidrewards.ui.fragment.SignInFragment;
 import jam.rain.com.kidrewards.ui.fragment.SplashFragment;
 
 @Singleton
