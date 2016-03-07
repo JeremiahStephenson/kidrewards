@@ -1,0 +1,38 @@
+# Temp files
+*~
+
+# NetBeans
+nb-configuration.xml
+# nbactions.xml
+
+# Eclipse
+.settings
+.classpath
+.project
+.mymetadata
+
+# IDEA
+*.ipr
+*.iml
+*.iws
+.idea/
+
+# Android
+classes/
+bin/
+gen/
+out/
+local.properties
+gen-external-apklibs/
+libs/*.jar
+build/
+.gradle/
+.crashlytics_data/
+src/main/assets/catalog.zip
+src/main/assets/index.json
+src/main/assets/tips.zip
+src/main/assets/tips_index.json
+
+# OSX
+.DS_Store
+tmp/
