@@ -6,6 +6,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -42,6 +43,10 @@ public class GeneralActivity extends AppCompatActivity {
     int titleResourceId;
 
     @Nullable
+    @Bind(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+
+    @Nullable
     @Bind(R.id.ab_toolbar)
     Toolbar toolbar;
 
@@ -66,10 +71,14 @@ public class GeneralActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_general);
 
+        if (drawerLayout != null) {
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        }
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(shouldShowHomeButtonEnabled());
+            actionBar.setDisplayHomeAsUpEnabled(shouldDisplayHomeAsUpEnabled());
             actionBar.setTitle(titleResourceId);
         }
 
@@ -87,6 +96,14 @@ public class GeneralActivity extends AppCompatActivity {
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
+    }
+
+    protected boolean shouldShowHomeButtonEnabled() {
+        return true;
+    }
+
+    protected boolean shouldDisplayHomeAsUpEnabled() {
+        return true;
     }
 
     @Override

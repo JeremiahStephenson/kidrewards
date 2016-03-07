@@ -8,4 +8,14 @@ public class SplashActivity extends GeneralActivity {
     protected String getFragmentClassName() {
         return SplashFragment.class.getName();
     }
+
+    @Override
+    protected boolean shouldDisplayHomeAsUpEnabled() {
+        return false;
+    }
+
+    @Override
+    protected boolean shouldShowHomeButtonEnabled() {
+        return false;
+    }
 }

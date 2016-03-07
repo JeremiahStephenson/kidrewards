@@ -24,4 +24,14 @@ public class SignInActivity extends GeneralActivity {
             }
         }
     }
+
+    @Override
+    protected boolean shouldDisplayHomeAsUpEnabled() {
+        return false;
+    }
+
+    @Override
+    protected boolean shouldShowHomeButtonEnabled() {
+        return false;
+    }
 }
