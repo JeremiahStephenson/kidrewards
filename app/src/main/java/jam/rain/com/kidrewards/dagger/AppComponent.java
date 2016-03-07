@@ -4,7 +4,9 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import jam.rain.com.kidrewards.ui.activity.GeneralActivity;
+import jam.rain.com.kidrewards.ui.adapter.ChildListAdapter;
 import jam.rain.com.kidrewards.ui.fragment.ChildFragment;
+import jam.rain.com.kidrewards.ui.fragment.ChildListFragment;
 import jam.rain.com.kidrewards.ui.fragment.SignInFragment;
 
 @Singleton
@@ -16,4 +18,8 @@ public interface AppComponent {
     void inject(ChildFragment target);
 
     void inject(SignInFragment target);
+
+    void inject(ChildListFragment target);
+
+    void inject(ChildListAdapter target);
 }
