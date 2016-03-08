@@ -1,6 +1,12 @@
 package jam.rain.com.kidrewards.ui.fragment;
 
 import android.content.res.Resources;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.firebase.client.ChildEventListener;
@@ -8,20 +14,31 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import jam.rain.com.kidrewards.InternalIntents;
 import jam.rain.com.kidrewards.R;
 import jam.rain.com.kidrewards.dagger.Injector;
 import jam.rain.com.kidrewards.domain.Child;
 import jam.rain.com.kidrewards.util.FirebaseUtil;
+import jam.rain.com.kidrewards.util.GoogleApiUtil;
 
 public class ChildFragment extends BaseFragment {
 
     @Inject
     Firebase firebase;
+
+    @Inject
+    GoogleApiUtil googleApiUtil;
+
+    @Inject
+    InternalIntents internalIntents;
 
     @Bind(R.id.points)
     TextView pointsTextView;
@@ -32,6 +49,12 @@ public class ChildFragment extends BaseFragment {
     private Firebase familyRef;
     private Firebase childrenRef;
     private Firebase currentChildRef;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     protected void onPostViewCreated() {
@@ -57,6 +80,41 @@ public class ChildFragment extends BaseFragment {
     @OnClick(R.id.remove_point)
     public void onRemovePointClicked() {
         setPoints(--points);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_sign_out, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_sign_out) {
+            logout();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Unauthenticate from Firebase and from providers where necessary.
+     */
+    private void logout() {
+        /* logout of Firebase */
+        firebase.unauth();
+        /* Setup the Google API object to allow Google+ logins */
+        final GoogleApiClient googleApiClient = googleApiUtil.getGoogleApiClient();
+
+        if (googleApiClient.isConnected()) {
+            googleApiClient.clearDefaultAccountAndReconnect().setResultCallback(new ResultCallback<Status>() {
+                @Override
+                public void onResult(@NonNull Status status) {
+                    googleApiClient.disconnect();
+                }
+            });
+        }
+
+        internalIntents.showGeneralActivity(getActivity(), SignInFragment.class, 0);
     }
 
     private void setPoints(int points) {

@@ -14,9 +14,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
@@ -27,9 +24,6 @@ import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.plus.Plus;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -45,6 +39,7 @@ import jam.rain.com.kidrewards.InternalIntents;
 import jam.rain.com.kidrewards.R;
 import jam.rain.com.kidrewards.dagger.Injector;
 import jam.rain.com.kidrewards.util.ExecutorUtil;
+import jam.rain.com.kidrewards.util.GoogleApiUtil;
 
 public class SignInFragment extends BaseFragment implements
         GoogleApiClient.ConnectionCallbacks,
@@ -84,6 +79,9 @@ public class SignInFragment extends BaseFragment implements
     @Inject
     InternalIntents internalIntents;
 
+    @Inject
+    GoogleApiUtil googleApiUtil;
+
     @Override
     protected int getLayoutResourceId() {
         return R.layout.fragment_sign_in;
@@ -95,13 +93,8 @@ public class SignInFragment extends BaseFragment implements
         Injector.get().inject(this);
         setHasOptionsMenu(true);
 
-        /* Setup the Google API object to allow Google+ logins */
-        googleApiClient = new GoogleApiClient.Builder(getActivity())
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(Plus.API)
-                .addScope(Plus.SCOPE_PLUS_LOGIN)
-                .build();
+        googleApiClient = googleApiUtil.getGoogleApiClient();
+        googleApiUtil.setListeners(this, this);
 
         /* Setup the progress dialog that is displayed later when authenticating with Firebase */
         authProgressDialog = new ProgressDialog(getActivity());
@@ -123,24 +116,11 @@ public class SignInFragment extends BaseFragment implements
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_sign_out, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_sign_out) {
-            logout();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
         // if changing configurations, stop tracking firebase session.
         firebaseRef.removeAuthStateListener(authStateListener);
+        googleApiUtil.removeListeners();
     }
 
     @OnClick(R.id.login_with_google)
@@ -181,26 +161,6 @@ public class SignInFragment extends BaseFragment implements
             if (!googleApiClient.isConnecting()) {
                 googleApiClient.connect();
             }
-        }
-    }
-
-    /**
-     * Unauthenticate from Firebase and from providers where necessary.
-     */
-    private void logout() {
-        if (this.authData != null) {
-            /* logout of Firebase */
-            firebaseRef.unauth();
-            /* Logout from Google+ */
-            if (googleApiClient != null && googleApiClient.isConnected()) {
-                googleApiClient.clearDefaultAccountAndReconnect().setResultCallback(new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(@NonNull Status status) {
-                        googleApiClient.disconnect();
-                        setAuthenticatedUser(null);
-                    }
-                });
-            };
         }
     }
 
